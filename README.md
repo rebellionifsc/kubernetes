@@ -1,2 +1,2 @@
 # kubernetes
-Arquivos de configuração do Kubernetes
+Arquivos de configuração do Kubernetes.
