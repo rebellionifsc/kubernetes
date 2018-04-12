@@ -1,0 +1,63 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: pi60808-proj1-ssh
+  labels:
+    disciplina: pi60808
+    projeto: 1
+    aplicacao: ssh
+spec:
+  template:
+    metadata:
+      labels:
+        disciplina: pi60808
+        projeto: 1
+        aplicacao: ssh
+    spec:
+      containers:
+      - name: pi60808-proj1-ssh
+        image: cticsjeifsc/ssh:latest
+        env:
+        - name: MARIADB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: pi60808-proj1-mariadb
+              key: mariadb-root-password
+#        - name: MARIADB_PASSWORD
+#          valueFrom:
+#            secretKeyRef:
+#              name: mediawiki-mariadb
+#              key: mariadb-password
+#        - name: ALLOW_EMPTY_PASSWORD
+#          value: "yes"
+        ports:
+        - name: mysql
+          containerPort: 3306
+        livenessProbe:
+          exec:
+            command:
+            - mysqladmin
+            - ping
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+        readinessProbe:
+          exec:
+            command:
+            - mysqladmin
+            - ping
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+        resources:
+          requests:
+            memory: 256Mi
+            cpu: 250m
+        volumeMounts:
+        - name:
+          mountPath:
+      volumes:
+      - name: config
+        configMap:
+          name: pi60808-proj1-mariadb
+      - name: data
+        persistentVolumeClaim:
+claimName:
