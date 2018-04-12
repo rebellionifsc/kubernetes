@@ -4,6 +4,7 @@ metadata:
   labels:
     app: nginx
   name: nginx-http
+  namespace: ensino
 spec:
   externalIPs:
     - "191.36.8.21"

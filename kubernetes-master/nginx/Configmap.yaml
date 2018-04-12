@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: nginx-nginx-conf
+  namespace: ensino
 data:
   nginx.conf: |-
     events {
