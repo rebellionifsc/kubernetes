@@ -33,21 +33,8 @@ spec:
               mountPath: /etc/nginx/nginx.conf
               subPath: nginx.conf
               readOnly: true
-            - name: nginx-nginx-ssl
-              mountPath: /etc/certs/
-              readOnly: true
       restartPolicy: Always
       volumes:
       - name: nginx-nginx-conf
         configMap:
           name: nginx-nginx-conf
-      - name: nginx-nginx-ssl
-        secret:
-          secretName: nginx-nginx-ssl
-          items:
-            - key: ca.pem
-              path: "ca.pem"
-            - key: cert.pem
-              path: "cert.pem"
-            - key: key.pem
-              path: "key.pem"
